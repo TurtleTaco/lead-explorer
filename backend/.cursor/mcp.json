@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "encore-mcp": {
+            "args": [
+                "mcp",
+                "run",
+                "--app=lead-explorer-6dc2"
+            ],
+            "command": "encore"
+        }
+    }
+}

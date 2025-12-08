@@ -1,0 +1,5 @@
+# Python dependencies for Supabase data migration
+
+# PostgreSQL adapter for Python
+psycopg2-binary>=2.9.0
+

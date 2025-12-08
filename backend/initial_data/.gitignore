@@ -1,0 +1,17 @@
+# Protect sensitive credentials
+supabase_credential
+
+# Ignore large data files (optional - uncomment if you don't want to commit JSON files)
+# *.json
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+
