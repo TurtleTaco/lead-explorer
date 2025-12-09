@@ -1,4 +1,4 @@
-import { getOrganizationData } from "@/lib/api/jobs-data";
+import { getOrganizationData, getJobFilterOptions } from "@/lib/api/jobs-data";
 import {
 	Card,
 	CardContent,
@@ -11,16 +11,21 @@ import {
 	Briefcase,
 	Search,
 } from "lucide-react";
-import { JobSearchAccordion } from "@/components/job-search-accordion";
+import { JobsByCompanyAccordion } from "@/components/jobs-by-company-accordion";
 import { AddSearchDialog } from "@/components/add-search-dialog";
+import { JobsFilter } from "@/components/jobs-filter";
 
 export default async function JobExplorerPage({
 	params,
+	searchParams,
 }: {
 	params: Promise<{ orgId: string }>;
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
 	const { orgId } = await params;
+	const filters = await searchParams;
 	const data = await getOrganizationData(orgId);
+	const filterOptions = await getJobFilterOptions(orgId);
 
 	if (!data) {
 		return (
@@ -47,6 +52,26 @@ export default async function JobExplorerPage({
 			</div>
 		);
 	}
+
+	// Parse filters
+	const employeeCountMin = filters.employeeCountMin 
+		? parseInt(filters.employeeCountMin as string) 
+		: undefined;
+	const employeeCountMax = filters.employeeCountMax 
+		? parseInt(filters.employeeCountMax as string) 
+		: undefined;
+
+	const sortBy = filters.sortBy === "company_name" || filters.sortBy === "job_count" || filters.sortBy === "company_size" 
+		? filters.sortBy 
+		: "job_count";
+
+	const jobFilters = {
+		industry: typeof filters.industry === "string" ? filters.industry : undefined,
+		companyName: typeof filters.companyName === "string" ? filters.companyName : undefined,
+		employeeCountMin,
+		employeeCountMax,
+		sortBy: sortBy as "company_name" | "job_count" | "company_size",
+	};
 
 	const totalJobs = data.searches.reduce(
 		(acc, s) => acc + s.search.job_count,
@@ -78,12 +103,19 @@ export default async function JobExplorerPage({
 				<AddSearchDialog />
 			</div>
 
+			{/* Filters */}
+			<JobsFilter industries={filterOptions.industries} orgId={orgId} />
+
 			{/* Searches and Jobs */}
 			<Card>
 				<CardHeader>
 					<CardTitle>Job Searches</CardTitle>
 					<CardDescription>
-						Browse jobs organized by search term. Filter by company to narrow your results.
+						{jobFilters.sortBy === "company_name" 
+							? "Companies sorted alphabetically" 
+							: jobFilters.sortBy === "company_size"
+							? "Companies sorted by size (largest first)"
+							: "Companies sorted by number of open positions"}
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -92,7 +124,7 @@ export default async function JobExplorerPage({
 							No searches found
 						</p>
 					) : (
-						<JobSearchAccordion searches={data.searches} />
+						<JobsByCompanyAccordion searches={data.searches} filters={jobFilters} />
 					)}
 				</CardContent>
 			</Card>

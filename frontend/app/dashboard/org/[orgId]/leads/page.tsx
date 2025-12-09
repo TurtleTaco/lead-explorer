@@ -56,7 +56,7 @@ export default async function LeadWorkbenchPage({
 			{/* Header with Compact Stats */}
 			<div className="space-y-3">
 				<div>
-					<h1 className="text-4xl font-bold">Company Workbench</h1>
+					<h1 className="text-4xl font-bold">Company</h1>
 					<p className="text-muted-foreground mt-2">
 						Discover companies and key contacts from your job search results
 					</p>

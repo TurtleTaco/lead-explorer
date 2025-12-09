@@ -180,6 +180,61 @@ export async function getCompanyNamesForSearch(searchId: number): Promise<string
 }
 
 /**
+ * Get distinct industries for filter options
+ */
+export async function getJobFilterOptions(clerkOrgId: string): Promise<{ industries: string[] }> {
+	const supabase = getSupabaseClient();
+
+	// Get organization
+	const { data: org } = await supabase
+		.from("organizations")
+		.select("id")
+		.eq("org_id", clerkOrgId)
+		.single();
+
+	if (!org) {
+		return { industries: [] };
+	}
+
+	// Get searches
+	const { data: searches } = await supabase
+		.from("searches")
+		.select("id")
+		.eq("org_id", org.id);
+
+	if (!searches || searches.length === 0) {
+		return { industries: [] };
+	}
+
+	const searchIds = searches.map((s) => s.id);
+
+	// Get distinct industries
+	const { data: jobs } = await supabase
+		.from("jobs")
+		.select("industries")
+		.in("search_id", searchIds)
+		.not("industries", "is", null);
+
+	const industriesSet = new Set<string>();
+
+	if (jobs) {
+		for (const job of jobs) {
+			if (job.industries) {
+				// Industries might be comma-separated
+				const industries = job.industries.split(",").map((i: string) => i.trim());
+				industries.forEach((ind: string) => {
+					if (ind) industriesSet.add(ind);
+				});
+			}
+		}
+	}
+
+	return {
+		industries: Array.from(industriesSet).sort(),
+	};
+}
+
+/**
  * Get job statistics for an organization
  */
 export interface JobStatistics {

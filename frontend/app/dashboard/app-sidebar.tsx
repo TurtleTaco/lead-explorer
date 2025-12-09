@@ -37,35 +37,34 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 								</Link>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
-						<SidebarMenuItem>
+						{/* <SidebarMenuItem>
 							<SidebarMenuButton asChild>
 								<Link href={orgId ? `/dashboard/org/${orgId}/leads` : "/dashboard/leads"}>
-									<Target /> Company Workbench
+									<Target /> Company
+								</Link>
+							</SidebarMenuButton>
+						</SidebarMenuItem> */}
+						<SidebarMenuItem>
+							<SidebarMenuButton asChild>
+								<Link href={orgId ? `/dashboard/org/${orgId}/jobs` : "/dashboard/jobs"}>
+									<Database /> Jobs
 								</Link>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
 								<Link href={orgId ? `/dashboard/org/${orgId}/contacts` : "/dashboard/contacts"}>
-									<Users /> Contact Manager
+									<Users /> Contacts
 								</Link>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
-						<SidebarMenuItem>
-							<SidebarMenuButton asChild>
-								<Link href={orgId ? `/dashboard/org/${orgId}/jobs` : "/dashboard/jobs"}>
-									<Database /> Job Database
-								</Link>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-
-						<SidebarMenuItem>
+						{/* <SidebarMenuItem>
 							<SidebarMenuButton asChild>
 								<Link href={orgId ? `/dashboard/org/${orgId}/subscription` : "/dashboard/subscription"}>
 									<Wallet /> Subscription
 								</Link>
 							</SidebarMenuButton>
-						</SidebarMenuItem>
+						</SidebarMenuItem> */}
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
 								<Link href={orgId ? `/dashboard/org/${orgId}/settings` : "/dashboard/settings"}>
