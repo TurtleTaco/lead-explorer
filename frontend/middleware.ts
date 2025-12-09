@@ -1,15 +1,13 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-// Force middleware to use Node.js runtime instead of Edge
-export const runtime = 'nodejs';
-
 const isPublicRoute = createRouteMatcher(["/", "/pricing", "/sign-in(.*)", "/company"]);
 
-export default clerkMiddleware(async (auth, request) => {
+export default clerkMiddleware((auth, request) => {
 	const isPublic = isPublicRoute(request);
+	
 	if (!isPublic) {
-		await auth.protect();
+		auth.protect();
 	}
 
 	// If we don't have an organization ID, redirect to the select organization page
@@ -18,29 +16,29 @@ export default clerkMiddleware(async (auth, request) => {
 		request.nextUrl.pathname !== "/select-organization" &&
 		!request.nextUrl.pathname.startsWith("/dashboard/org/")
 	) {
-		const user = await auth();
+		const { orgId } = auth();
 
-		if (!user.orgId) {
+		if (!orgId) {
 			return NextResponse.redirect(
 				new URL("/select-organization", request.url),
 			);
 		}
 
 		// If user has an org but is accessing generic /dashboard routes, redirect to org-specific routes
-		if (user.orgId) {
+		if (orgId) {
 			if (request.nextUrl.pathname === "/dashboard") {
 				return NextResponse.redirect(
-					new URL(`/dashboard/org/${user.orgId}`, request.url),
+					new URL(`/dashboard/org/${orgId}`, request.url),
 				);
 			}
 			if (request.nextUrl.pathname === "/dashboard/subscription") {
 				return NextResponse.redirect(
-					new URL(`/dashboard/org/${user.orgId}/subscription`, request.url),
+					new URL(`/dashboard/org/${orgId}/subscription`, request.url),
 				);
 			}
 			if (request.nextUrl.pathname === "/dashboard/settings") {
 				return NextResponse.redirect(
-					new URL(`/dashboard/org/${user.orgId}/settings`, request.url),
+					new URL(`/dashboard/org/${orgId}/settings`, request.url),
 				);
 			}
 		}
