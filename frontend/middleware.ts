@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher(["/", "/pricing", "/sign-in(.*)", "/company"]);
 
-export default clerkMiddleware((auth, request) => {
+export default clerkMiddleware(async (auth, request) => {
 	const isPublic = isPublicRoute(request);
 	
 	if (!isPublic) {
@@ -16,7 +16,7 @@ export default clerkMiddleware((auth, request) => {
 		request.nextUrl.pathname !== "/select-organization" &&
 		!request.nextUrl.pathname.startsWith("/dashboard/org/")
 	) {
-		const { orgId } = auth();
+		const { orgId } = await auth();
 
 		if (!orgId) {
 			return NextResponse.redirect(
