@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "(test -f env && cp env .env.local || true) && next dev --turbopack",
+    "dev": "test -f env && cp env .env.local || true && next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
