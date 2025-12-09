@@ -1,19 +1,37 @@
-import { CreateOrganization, OrganizationSwitcher } from "@clerk/nextjs";
+"use client";
+
+import { OrganizationSwitcher, useOrganization } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 /**
- * This page renders the Clerk CreateOrganization component.
- * See https://clerk.com/docs/components/organization/create-organization for more information.
+ * This page renders the Clerk OrganizationSwitcher component.
+ * After selecting an organization, it redirects to the organization-specific dashboard.
+ * See https://clerk.com/docs/components/organization/organization-switcher for more information.
  */
-export default function CreateOrganizationPage() {
+export default function SelectOrganizationPage() {
+	const { organization } = useOrganization();
+	const router = useRouter();
+
+	useEffect(() => {
+		// When an organization is selected, redirect to its dashboard
+		if (organization?.id) {
+			router.push(`/dashboard/org/${organization.id}`);
+		}
+	}, [organization?.id, router]);
+
 	return (
 		<div className="min-h-screen flex flex-col gap-4 items-center justify-center">
-			<p>Select an organization to continue.</p>
+			<p className="text-lg font-medium">Select an organization to continue.</p>
 
 			<OrganizationSwitcher
-				afterSelectOrganizationUrl="/dashboard"
-				afterCreateOrganizationUrl="/dashboard"
 				hidePersonal
 				defaultOpen
+				appearance={{
+					elements: {
+						rootBox: "mx-auto",
+					},
+				}}
 			/>
 		</div>
 	);

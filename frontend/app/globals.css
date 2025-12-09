@@ -6,6 +6,7 @@ See https://ui.shadcn.com/docs/tailwind-v4 for more information.
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -163,5 +164,57 @@ See https://ui.shadcn.com/docs/tailwind-v4 for more information.
 	button:not(:disabled),
 	[role="button"]:not(:disabled) {
 		cursor: pointer;
+	}
+
+	/* Custom styling for prose in job descriptions */
+	.prose {
+		color: inherit;
+	}
+	
+	.prose p {
+		margin-top: 0.25rem;
+		margin-bottom: 0.25rem;
+	}
+	
+	.prose p:empty {
+		display: none;
+	}
+	
+	.prose ul, .prose ol {
+		margin-top: 0.25rem;
+		margin-bottom: 0.25rem;
+		padding-left: 1.5rem;
+	}
+	
+	.prose li {
+		margin-top: 0.1rem;
+		margin-bottom: 0.1rem;
+	}
+	
+	.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+		margin-top: 0.5rem;
+		margin-bottom: 0.25rem;
+		font-weight: 600;
+	}
+	
+	.prose strong {
+		font-weight: 600;
+	}
+	
+	.prose a {
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
+	
+	.prose br {
+		display: none;
+	}
+	
+	.prose > *:first-child {
+		margin-top: 0;
+	}
+	
+	.prose > *:last-child {
+		margin-bottom: 0;
 	}
 }

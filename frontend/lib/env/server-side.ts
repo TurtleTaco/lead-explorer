@@ -1,9 +1,12 @@
 import { z } from "zod";
 
 const serverSideEnvSchema = z.object({
-	VERCEL_ENV: z.enum(["development", "preview", "production"]),
+	VERCEL_ENV: z
+		.enum(["development", "preview", "production"])
+		.default("development"), // Default to development for local
 	VERCEL_GIT_PULL_REQUEST_ID: z
 		.string()
+		.optional()
 		.transform((v) => (v === "" ? undefined : v)), // Treat an empty string as undefined
 });
 
@@ -11,6 +14,6 @@ const serverSideEnvSchema = z.object({
  * Type-safe environment variables available server-side
  */
 export const serverSideEnv = serverSideEnvSchema.parse({
-	VERCEL_ENV: process.env.VERCEL_ENV,
+	VERCEL_ENV: process.env.VERCEL_ENV || "development",
 	VERCEL_GIT_PULL_REQUEST_ID: process.env.VERCEL_GIT_PULL_REQUEST_ID,
 });

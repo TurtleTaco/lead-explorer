@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	title: {
-		template: "%s | Encore.ts SaaS Starter",
-		default: "Encore.ts SaaS Starter",
+		template: "%s | LeadScout",
+		default: "LeadScout - Find Your Next Customer Where They're Hiring",
 	},
 	description:
-		"An SaaS Starter template using Encore.ts, Nextjs, Clerk, Stripe, Tailwind and shadcn/ui.",
+		"Turn job postings into qualified leads. Automatically discover companies from their hiring activity and enrich them with verified contact information.",
 };
 
 export default function RootLayout({

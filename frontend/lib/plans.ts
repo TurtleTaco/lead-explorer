@@ -1,22 +1,46 @@
 export const plans = [
 	{
-		name: "Small",
-		price: 8,
-		features: ["Feature 1", "Feature 2", "Feature 3"],
+		name: "Starter",
+		price: 49,
+		features: [
+			"1,000 job searches/month",
+			"500 contact enrichments/month",
+			"Basic filters & search",
+			"Email support",
+			"Export to CSV"
+		],
 		stripeProductId: "prod_RsP4IJeES8hBDu",
 		stripePriceId: "price_1QyeDTGPZxkKVmuncIjFBYj7",
 	},
 	{
-		name: "Medium",
-		price: 20,
-		features: ["Feature 1", "Feature 2", "Feature 3", "Feature 4"],
+		name: "Professional",
+		price: 149,
+		features: [
+			"10,000 job searches/month",
+			"5,000 contact enrichments/month",
+			"Advanced filters & search",
+			"Priority email support",
+			"API access",
+			"Team collaboration (5 seats)",
+			"Export to CSV & CRM integrations"
+		],
 		stripeProductId: "prod_RsP2eL9TWCTqFR",
 		stripePriceId: "price_1QyeEuGPZxkKVmunwbaiAkaO",
 	},
 	{
-		name: "Large",
-		price: 70,
-		features: ["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"],
+		name: "Enterprise",
+		price: 499,
+		features: [
+			"Unlimited job searches",
+			"50,000 contact enrichments/month",
+			"Custom filters & workflows",
+			"Dedicated support",
+			"Full API access",
+			"Unlimited team seats",
+			"Custom integrations",
+			"Advanced analytics",
+			"White-label options"
+		],
 		stripeProductId: "prod_RsP19mrNfkIeXG",
 		stripePriceId: "price_1QyeFvGPZxkKVmunS8HJc1OS",
 	},

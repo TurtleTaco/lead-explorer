@@ -20,8 +20,7 @@ export default function DashboardLayout({
 					<Separator orientation="vertical" />
 
 					<div className="grow flex items-center justify-between">
-						<p className="text-lg font-semibold">Acme</p>
-
+						<p className="text-lg font-semibold"></p>
 						<UserButton />
 					</div>
 				</header>
