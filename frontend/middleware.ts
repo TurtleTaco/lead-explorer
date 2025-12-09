@@ -1,6 +1,9 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+// Force middleware to use Node.js runtime instead of Edge
+export const runtime = 'nodejs';
+
 const isPublicRoute = createRouteMatcher(["/", "/pricing", "/sign-in(.*)", "/company"]);
 
 export default clerkMiddleware(async (auth, request) => {
