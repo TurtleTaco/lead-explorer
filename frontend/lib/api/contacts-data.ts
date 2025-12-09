@@ -59,7 +59,7 @@ export async function getAllContacts(
 	if (orgError || !org) {
 		console.error("Organization not found:", orgError);
 		return {
-			contacts: [],
+			companies: [],
 			total_contacts: 0,
 			companies_count: 0,
 			filter_options: { seniorities: [], industries: [], locations: [] },
@@ -110,7 +110,7 @@ export async function getAllContacts(
 	if (contactsError || !contacts) {
 		console.error("Error fetching contacts:", contactsError);
 		return {
-			contacts: [],
+			companies: [],
 			total_contacts: 0,
 			companies_count: 0,
 			filter_options: { seniorities: [], industries: [], locations: [] },

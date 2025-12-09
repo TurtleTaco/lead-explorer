@@ -143,7 +143,9 @@ export function IndustryDistributionChart({ data }: IndustryDistributionProps) {
 							labelLine={(props: any) => {
 								// Only show label line if percentage is > 5%
 								const { percent } = props;
-								if (percent < 0.05) return null;
+								if (percent < 0.05) {
+									return <line {...props} stroke="transparent" />;
+								}
 								return <line {...props} stroke="hsl(var(--muted-foreground))" />;
 							}}
 						>

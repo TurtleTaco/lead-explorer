@@ -244,11 +244,11 @@ export async function getFilterOptions(clerkOrgId: string) {
 
 	if (jobs) {
 		for (const job of jobs) {
-			if (job.industries) {
-				// Industries might be comma-separated
-				const industries = job.industries.split(",").map((i) => i.trim());
-				industries.forEach((ind) => industriesSet.add(ind));
-			}
+		if (job.industries) {
+			// Industries might be comma-separated
+			const industries = job.industries.split(",").map((i: string) => i.trim());
+			industries.forEach((ind: string) => industriesSet.add(ind));
+		}
 			if (job.location) {
 				locationsSet.add(job.location);
 			}
